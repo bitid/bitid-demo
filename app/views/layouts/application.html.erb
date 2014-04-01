@@ -1,14 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>BitidDemo</title>
+  <title>BitID Open Protocol - Demonstration site</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
-<%= yield %>
+  <div class="site-wrapper">
+
+    <div class="site-wrapper-inner">
+
+      <div class="cover-container">
+
+        <div class="masthead clearfix">
+          <div class="inner">
+            <h3 class="masthead-brand">BitID</h3>
+            <ul class="nav masthead-nav">
+              <li class="active"><a href="#">Demo</a></li>
+              <li><a href="https://github.com/bitid/bitid">Protocol</a></li>
+              <li><a href="#">About</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="inner cover">
+          <%= yield %>
+        </div>
+
+        <div class="mastfoot">
+          <div class="inner">
+            <p>Source code of this website on <a href="https://github.com/bitid/bitid-demo">GitHub</a>, by <a href="https://twitter.com/EricLarch">@EricLarch</a>.</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
 
 </body>
 </html>
