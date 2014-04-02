@@ -4,7 +4,7 @@ class BitidTest < ActiveSupport::TestCase
 
   setup do
     @nonce = Nonce.create
-    @callback = "http://www.test.com/callback"
+    @callback = "http://localhost:3000/callback"
     @uri = "bitid://login?x=fe32e61882a71074&c=http%3A%2F%2Flocalhost%3A3000%2Fcallback"
     @address = "1HpE8571PFRwge5coHiFdSCLcwa7qetcn"
     @signature = "HxIhHWBedUxNlSZThlMPsOvRBA8qXnuL3DGBTUU9tO6pSwrJd+2coBfrh4XXXnB2Ho+iKGZJt7/ZJAWGJS6OzPE="

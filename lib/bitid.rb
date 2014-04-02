@@ -8,13 +8,13 @@ class Bitid
   def initialize hash={}
     @nonce = hash[:nonce]
     @callback = hash[:callback]
-    @btc = hash[:address]
+    @address = hash[:address]
     @signature = hash[:signature]
     begin
-      if hash['uri'].blank?
+      if hash[:uri].blank?
         build_uri
       else
-        @uri = URI(hash['uri'])
+        @uri = URI(hash[:uri])
       end
     rescue
     end
@@ -27,14 +27,14 @@ class Bitid
   def uri_valid?
     if @uri.blank?
       false
-    elsif @url.scheme != SCHEME
+    elsif @uri.scheme != SCHEME
       false
-    elsif @url.host != ACTION_LOGIN
+    elsif @uri.host != ACTION_LOGIN
       false
     else
-      params = CGI::parse(bitid.uri.query)
+      params = CGI::parse(@uri.query)
       return false unless params[PARAM_NONCE][0].present? && params[PARAM_CALLBACK][0].present?
-      return false if params[PARAM_CALLBACK][0] != @callback || @callback.blank?
+      return false if !params[PARAM_CALLBACK][0].eql?(@callback) || @callback.blank?
       true
     end
     rescue
