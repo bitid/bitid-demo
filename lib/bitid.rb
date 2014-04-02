@@ -18,7 +18,7 @@ class Bitid
         @uri = URI(hash[:uri])
       end
     rescue
-    end
+    end    
   end
 
   def uri_valid?
@@ -39,13 +39,16 @@ class Bitid
   end
 
   def signature_valid?
-    address = BitcoinCigs.get_signature_address(@signature, @uri.to_s)
-    return false if address == false
-    BitcoinCigs.verify_message(address, @signature, @uri.to_s)
+    address.present? && BitcoinCigs.verify_message(address, @signature, @uri.to_s)
   end
 
   def qrcode
     "http://chart.apis.google.com/chart?cht=qr&chs=300x300&chl=" + URI.encode(@uri.to_s)
+  end
+
+  def address
+    @address = BitcoinCigs.get_signature_address(@signature, @uri.to_s) if @address.nil?
+    @address
   end
 
   private

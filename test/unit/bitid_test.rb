@@ -69,4 +69,8 @@ class BitidTest < ActiveSupport::TestCase
     assert !bitid.signature_valid?
   end
 
+  test "should get address from signature" do
+    bitid = Bitid.new(address:@address, uri:@uri, signature:@signature, callback:@callback)
+    assert_equal @address, bitid.address
+  end
 end
