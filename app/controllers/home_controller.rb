@@ -1,5 +1,7 @@
 class HomeController < ApplicationController
 
-  def index
+  def login
+    @nonce = Nonce.create
+    @bitid = Bitid.new({nonce:@nonce, callback:callback_index_url})
   end
 end

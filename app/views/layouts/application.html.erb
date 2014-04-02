@@ -8,38 +8,23 @@
 </head>
 <body>
 
-  <div class="site-wrapper">
-
-    <div class="site-wrapper-inner">
-
-      <div class="cover-container">
-
-        <div class="masthead clearfix">
-          <div class="inner">
-            <h3 class="masthead-brand">BitID</h3>
-            <ul class="nav masthead-nav">
-              <li class="active"><a href="#">Demo</a></li>
-              <li><a href="https://github.com/bitid/bitid">Protocol</a></li>
-              <li><a href="#">About</a></li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="inner cover">
-          <%= yield %>
-        </div>
-
-        <div class="mastfoot">
-          <div class="inner">
-            <p>Source code of this website on <a href="https://github.com/bitid/bitid-demo">GitHub</a>, by <a href="https://twitter.com/EricLarch">@EricLarch</a>.</p>
-          </div>
-        </div>
-
-      </div>
-
+  <div class="container">
+    <div class="header">
+      <ul class="nav nav-pills pull-right">
+        <li class="active"><a href="#">Demonstration</a></li>
+        <li><a href="#">GitHub</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+      <h3 class="text-muted">BitID</h3>
     </div>
 
-  </div>
+    <%= yield %>
+
+    <div class="footer">
+      <p>Source code of this website on <a href="https://github.com/bitid/bitid-demo">GitHub</a>, by <a href="https://twitter.com/EricLarch">@EricLarch</a></p>
+    </div>
+
+  </div> 
 
 </body>
 </html>

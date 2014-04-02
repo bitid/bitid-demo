@@ -1,177 +1,98 @@
 @import "bootstrap";
 
-/*
- * Globals
- */
-
-/* Links */
-
-a {
-  color: #fff;
-  &:focus, &:hover {
-    color: #fff;
-  }
-}
-
-/* Custom default button */
-
-.btn-default {
-  color: #333;
-  text-shadow: none;
-  /* Prevent inheritence from `body` */
-  background-color: #fff;
-  border: 1px solid #fff;
-  &:hover, &:focus {
-    color: #333;
-    text-shadow: none;
-    /* Prevent inheritence from `body` */
-    background-color: #fff;
-    border: 1px solid #fff;
-  }
-}
-
-/*
- * Base structure
- */
-
-html {
-  height: 100%;
-  background-color: #333;
-}
+/* Space out content a bit */
 
 body {
-  height: 100%;
-  background-color: #333;
-  color: #fff;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+/* Everything but the jumbotron gets side spacing for mobile first views */
+
+.header, .marketing, .footer {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+/* Custom page header */
+
+.header {
+  border-bottom: 1px solid #e5e5e5;
+  h3 {
+    padding-bottom: 19px;
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 40px;
+  }
+}
+
+/* Make the masthead heading the same height as the navigation */
+
+/* Custom page footer */
+
+.footer {
+  padding-top: 19px;
+  color: #777;
+  border-top: 1px solid #e5e5e5;
+}
+
+/* Customize container */
+@media (min-width: 768px) {
+  .container {
+    max-width: 730px;
+  }
+}
+
+.container-narrow > hr {
+  margin: 30px 0;
+}
+
+/* Main marketing message and sign up button */
+
+.jumbotron {
   text-align: center;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-  box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.5);
-}
-
-/* Extra markup and styles for table-esque vertical and horizontal centering */
-
-.site-wrapper {
-  display: table;
-  width: 100%;
-  height: 100%;
-  /* For at least Firefox */
-  min-height: 100%;
-}
-
-.site-wrapper-inner {
-  display: table-cell;
-  vertical-align: top;
-}
-
-.cover-container {
-  margin-right: auto;
-  margin-left: auto;
-}
-
-/* Padding for spacing */
-
-.inner {
-  padding: 30px;
-}
-
-/*
- * Header
- */
-
-.masthead-brand {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.masthead-nav > {
-  li {
-    display: inline-block;
-    + li {
-      margin-left: 20px;
-    }
-    > a {
-      padding-right: 0;
-      padding-left: 0;
-      font-size: 16px;
-      font-weight: bold;
-      color: #fff;
-      /* IE8 proofing */
-      color: rgba(255, 255, 255, 0.75);
-      border-bottom: 2px solid transparent;
-      &:hover, &:focus {
-        background-color: transparent;
-        border-bottom-color: rgba(255, 255, 255, 0.25);
-      }
-    }
-  }
-  .active > a {
-    color: #fff;
-    border-bottom-color: #fff;
-    &:hover, &:focus {
-      color: #fff;
-      border-bottom-color: #fff;
-    }
+  border-bottom: 1px solid #e5e5e5;
+  .btn {
+    padding: 14px 24px;
+    font-size: 21px;
   }
 }
 
-@media (min-width: 768px) {
-  .masthead-brand {
-    float: left;
-  }
-  .masthead-nav {
-    float: right;
+/* Supporting marketing content */
+
+.marketing {
+  margin: 40px 0;
+  p + h4 {
+    margin-top: 28px;
   }
 }
 
-/*
- * Cover
- */
-
-.cover {
-  padding: 0 20px;
-  .btn-lg {
-    padding: 10px 20px;
-    font-weight: bold;
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+  /* Remove the padding we set earlier */
+  .header, .marketing, .footer {
+    padding-right: 0;
+    padding-left: 0;
+  }
+  /* Space out the masthead */
+  .header {
+    margin-bottom: 30px;
+  }
+  /* Remove the bottom border on the jumbotron for visual effect */
+  .jumbotron {
+    border-bottom: 0;
   }
 }
 
-/*
- * Footer
- */
-
-.mastfoot {
-  color: #999;
-  /* IE8 proofing */
-  color: rgba(255, 255, 255, 0.5);
-}
-
-/*
- * Affix and center
- */
-
-@media (min-width: 768px) {
-  /* Pull out the header and footer */
-  .masthead {
-    position: fixed;
-    top: 0;
-  }
-  .mastfoot {
-    position: fixed;
-    bottom: 0;
-  }
-  /* Start the vertical centering */
-  .site-wrapper-inner {
-    vertical-align: middle;
-  }
-  /* Handle the widths */
-  .masthead, .mastfoot, .cover-container {
-    width: 100%;
-    /* Must be percentage or pixels for horizontal alignment */
-  }
-}
-
-@media (min-width: 992px) {
-  .masthead, .mastfoot, .cover-container {
-    width: 700px;
-  }
-}
+.spacer5 { height: 5px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
+.spacer10 { height: 10px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
+.spacer15 { height: 15px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
+.spacer20 { height: 20px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
+.spacer25 { height: 25px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
+.spacer30 { height: 30px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
+.spacer35 { height: 35px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
+.spacer40 { height: 40px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
+.spacer45 { height: 45px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
+.spacer50 { height: 50px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
+.spacer100 { height: 100px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
+.spacer200 { height: 200px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
