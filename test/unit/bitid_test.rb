@@ -69,8 +69,4 @@ class BitidTest < ActiveSupport::TestCase
     assert !bitid.signature_valid?
   end
 
-  test "should fail verification if bad address" do
-    bitid = Bitid.new(address:"1Nu5mzpUD9A7daZ76QJEsBfkBjCWVLh7pJ", uri:@uri, signature:@signature, callback:@callback)
-    assert !bitid.signature_valid?
-  end
 end

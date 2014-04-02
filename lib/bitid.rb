@@ -5,10 +5,11 @@ class Bitid
   PARAM_NONCE = 'x'
   PARAM_CALLBACK = 'c'
 
+  attr_accessor :nonce, :callback, :signature, :uri
+
   def initialize hash={}
     @nonce = hash[:nonce]
     @callback = hash[:callback]
-    @btc = hash[:address]
     @signature = hash[:signature]
     begin
       if hash['uri'].blank?
@@ -18,10 +19,6 @@ class Bitid
       end
     rescue
     end
-  end
-
-  def uri
-    @uri
   end
 
   def uri_valid?
@@ -42,6 +39,9 @@ class Bitid
   end
 
   def signature_valid?
+    address = BitcoinCigs.get_signature_address(@signature, @uri.to_s)
+    return false if address == false
+    BitcoinCigs.verify_message(address, @signature, @uri.to_s)
   end
 
   def qrcode
