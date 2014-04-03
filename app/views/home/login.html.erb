@@ -5,7 +5,7 @@
 
   <div class="tab-content">
     <div class="tab-pane active" id="qrcode">
-      <div class="spacer50"></div>
+      <div class="spacer40"></div>
       <h3>Scan this QRcode with your BitID enabled mobile wallet.</h3>
       <p>You can also click on the QRcode if you have a BitID enabled desktop wallet.
       <div class="spacer20"></div>
@@ -20,23 +20,21 @@
       including Bitcoin Core.</p>
       <p>Please sign the challenge in the box below using the private key of this Bitcoin address you want to
       identify yourself with. Copy the text, open your wallet, choose your Bitcoin address, select the sign message
-      function, paste the text into the message input and sign. After copy and paste the signature into the signature
-      field, and enter your public Bitcoin address below.</p>
+      function, paste the text into the message input and sign. After it is done, copy and paste the signature 
+      into the field below.</p>
       <p>Cumbersome. Yep. Much better with a simple scan or click using a compatible wallet :)</p>
       <div class="well">
         <%= @bitid.uri.to_s %> 
       </div>
-      <%= form_tag callback_index_path do %>
-        <div class="form-group">
-          <label>BTC address</label>
-          <input type="text" name="address" class="form-control" placeholder="Enter your public Bitcoin address">
-        </div>
-        <div class="form-group">
-          <label>Signature</label>
-          <input type="text" name="signature" class="form-control" placeholder="Enter the signed challenge">
-        </div>
-        <button type="submit" class="btn btn-success">Sign in !</button>
-      <% end %>
+      <div class="form-group">
+        <label>Bitcoin address</label>
+        <input type="text" name="address" id="address" class="form-control" placeholder="Enter your public Bitcoin address">
+      </div>
+      <div class="form-group">
+        <label>Signature</label>
+        <input type="text" name="signature" id="signature" class="form-control" placeholder="Enter the signature">
+      </div>
+      <button id="check" class="btn btn-success" data-loading-text="Verifying signature">Sign in !</button>
       <div class="spacer40"></div>
     </div>
   </div>
@@ -47,5 +45,24 @@
     $('#gomanual').on('click', function() {
       $('#loginTab a[href="#manual"]').tab('show');
     });
-  })
+    $('#check').on('click', function() {
+      confirmSignature();
+    });
+  });
+  function confirmSignature() {
+    $("#check").button('loading');
+    $.ajax({
+      url: "<%= callback_index_path %>",
+      data: {uri: '<%= raw @bitid.uri.to_s %>', address: $('#address').val(), signature: $('#signature').val()},
+      type: "post",
+      error: function(data) {
+        $("#check").button('reset');
+        alert("Error : " + JSON.parse(data.responseText).message);
+      },
+      success: function(data) {
+        $("#check").button('reset');
+        alert("Welcome : " + data.address);
+      }
+    });
+  }
 </script>

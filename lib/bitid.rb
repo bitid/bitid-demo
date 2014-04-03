@@ -11,6 +11,7 @@ class Bitid
     @nonce = hash[:nonce]
     @callback = hash[:callback]
     @signature = hash[:signature]
+    @address = hash[:address]
     begin
       if hash[:uri].blank?
         build_uri
@@ -31,7 +32,7 @@ class Bitid
     else
       params = CGI::parse(@uri.query)
       return false unless params[PARAM_NONCE][0].present? && params[PARAM_CALLBACK][0].present?
-      return false if !params[PARAM_CALLBACK][0].eql?(@callback) || @callback.blank?
+      return false if @callback.blank? || !@callback.eql?(Base64.decode64(params[PARAM_CALLBACK][0]))
       true
     end
     rescue
@@ -39,16 +40,15 @@ class Bitid
   end
 
   def signature_valid?
-    address.present? && BitcoinCigs.verify_message(address, @signature, @uri.to_s)
+    BitcoinCigs.verify_message(@address, @signature, @uri.to_s)
   end
 
   def qrcode
-    "http://chart.apis.google.com/chart?cht=qr&chs=300x300&chl=" + URI.encode(@uri.to_s)
+    "http://chart.apis.google.com/chart?cht=qr&chs=300x300&chl=" + CGI::escape(@uri.to_s)
   end
 
-  def address
-    @address = BitcoinCigs.get_signature_address(@signature, @uri.to_s) if @address.nil?
-    @address
+  def nonce
+    CGI::parse(@uri.query)[PARAM_NONCE][0]
   end
 
   private
@@ -56,7 +56,7 @@ class Bitid
   def build_uri
     params = {}
     params[PARAM_NONCE] = @nonce.uuid
-    params[PARAM_CALLBACK] = @callback
+    params[PARAM_CALLBACK] = Base64.strict_encode64(@callback)
     @uri = URI(SCHEME + '://' + ACTION_LOGIN + '?' + URI.encode_www_form(params))
   end    
 end

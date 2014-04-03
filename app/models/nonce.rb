@@ -5,6 +5,10 @@ class Nonce < ActiveRecord::Base
 
   before_validation :populate_uuid
 
+  def expired?
+    self.created_at.to_i < Time.now.to_i - 600
+  end
+
   private
 
   def populate_uuid
