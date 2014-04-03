@@ -1,11 +1,18 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.13'
-gem 'sqlite3'
 gem 'sass-rails',   '~> 3.2.3'
 gem 'bootstrap-sass', '~> 3.1.1'
 gem 'bitcoin-cigs'
 gem 'devise'
+
+group :development do
+  gem 'sqlite3'
+end
+
+group :production do
+  gem 'pg'
+end
 
 group :assets do
   gem 'coffee-rails', '~> 3.2.1'
