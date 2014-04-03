@@ -1,10 +1,3 @@
-GIT
-  remote: https://github.com/lian/bitcoin-ruby
-  revision: 611b804a7f281674634002be58537955b3cc1f3b
-  branch: master
-  specs:
-    bitcoin-ruby (0.0.5)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -36,6 +29,8 @@ GEM
       i18n (= 0.6.1)
       multi_json (~> 1.0)
     arel (3.0.3)
+    atomic (1.1.16)
+    bcrypt (3.1.7)
     bitcoin-cigs (0.0.6)
     bootstrap-sass (3.1.1.0)
       sass (~> 3.2)
@@ -47,9 +42,14 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.7.0)
+    devise (3.2.4)
+      bcrypt (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 3.2.6, < 5)
+      thread_safe (~> 0.1)
+      warden (~> 1.2.3)
     erubis (2.7.0)
     execjs (2.0.2)
-    ffi (1.9.0)
     hike (1.2.3)
     i18n (0.6.1)
     journey (1.0.4)
@@ -63,6 +63,7 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.25.1)
     multi_json (1.9.2)
+    orm_adapter (0.5.0)
     polyglot (0.3.4)
     rack (1.4.5)
     rack-cache (1.2)
@@ -105,6 +106,8 @@ GEM
       libv8 (~> 3.16.14.0)
       ref
     thor (0.19.1)
+    thread_safe (0.3.1)
+      atomic (>= 1.1.7, < 2)
     tilt (1.4.1)
     treetop (1.4.15)
       polyglot
@@ -113,16 +116,17 @@ GEM
     uglifier (2.5.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    warden (1.2.3)
+      rack (>= 1.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   bitcoin-cigs
-  bitcoin-ruby!
   bootstrap-sass (~> 3.1.1)
   coffee-rails (~> 3.2.1)
-  ffi
+  devise
   jquery-rails
   rails (= 3.2.13)
   sass-rails (~> 3.2.3)

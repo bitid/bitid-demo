@@ -60,8 +60,7 @@
         alert("Error : " + JSON.parse(data.responseText).message);
       },
       success: function(data) {
-        $("#check").button('reset');
-        alert("Welcome : " + data.address);
+        window.location = '/user'
       }
     });
   }

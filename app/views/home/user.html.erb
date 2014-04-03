@@ -1,0 +1,6 @@
+<div class="jumbotron">
+  <h1>Success !</h1>
+  <p class="lead">Your Bitcoin address is <%= current_user.btc %></p>
+  <p>Sign in count : <%= current_user.sign_in_count %></p>
+  <p><a class="btn btn-lg btn-success" href="/users/sign_out" data-method="delete" role="button">Log out</a></p>
+</div>

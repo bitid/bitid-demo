@@ -15,7 +15,13 @@ class CallbackController < ApplicationController
       elsif @nonce.expired?
         render json: { message: "NONCE has expired"}, status: :unauthorized
       else
-        render json: { address: @address, nonce: @nonce.uuid, count:@user.count }
+
+        user = User.find_or_create_by_btc(@address)
+        sign_in user
+
+        @nonce.destroy
+
+        render json: { address: @address, nonce: @nonce.uuid }
       end
     end
   end

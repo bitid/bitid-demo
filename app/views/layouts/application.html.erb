@@ -11,9 +11,12 @@
   <div class="container">
     <div class="header">
       <ul class="nav nav-pills pull-right">
-        <li class="active"><a href="#">Demonstration</a></li>
+        <li class="active"><a href="/login">Demonstration</a></li>
         <li><a href="#">GitHub</a></li>
         <li><a href="#">About</a></li>
+        <% if current_user %>
+          <li><a href="/user"><%= current_user.name || current_user.btc %></a></li>
+        <% end %>
       </ul>
       <h3 class="text-muted">BitID</h3>
     </div>
