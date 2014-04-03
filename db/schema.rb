@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140403161329) do
+ActiveRecord::Schema.define(:version => 20140403215242) do
 
   create_table "nonces", :force => true do |t|
     t.string   "uuid"
@@ -37,7 +37,6 @@ ActiveRecord::Schema.define(:version => 20140403161329) do
     t.string   "last_sign_in_ip"
   end
 
-  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
 end
