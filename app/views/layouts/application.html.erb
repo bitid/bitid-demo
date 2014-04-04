@@ -12,20 +12,16 @@
     <div class="header">
       <ul class="nav nav-pills pull-right">
         <li class="active"><a href="/login">Demonstration</a></li>
-        <li><a href="#">GitHub</a></li>
-        <li><a href="#">About</a></li>
+        <li><a href="https://github.com/bitid/bitid-demo">GitHub</a></li>
+        <li><a href="https://github.com/bitid/bitid/blob/master/BIP_draft.md">BIP draft</a></li>
         <% if current_user %>
           <li><a href="/user"><%= current_user.name || current_user.btc %></a></li>
         <% end %>
       </ul>
-      <h3 class="text-muted">BitID</h3>
+      <h3><a class="text-muted" style="text-decoration: none;" href="/">BitID</a></h3>
     </div>
 
     <%= yield %>
-
-    <div class="footer">
-      <p>Source code of this website on <a href="https://github.com/bitid/bitid-demo">GitHub</a>, by <a href="https://twitter.com/EricLarch">@EricLarch</a></p>
-    </div>
 
   </div> 
 
