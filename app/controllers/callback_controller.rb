@@ -17,9 +17,8 @@ class CallbackController < ApplicationController
       else
 
         user = User.find_or_create_by_btc(@address)
-        sign_in user
-
-        @nonce.destroy
+        nonce.user_id = user.id
+        nonce.save!
 
         render json: { address: @address, nonce: @nonce.uuid }
       end

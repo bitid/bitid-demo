@@ -46,6 +46,8 @@
     $('#check').on('click', function() {
       confirmSignature();
     });
+    var timeStart = new Date().getTime();
+    setTimeout(checkForAuth(), 1000);
   });
   function confirmSignature() {
     $("#check").button('loading');
@@ -56,10 +58,22 @@
       error: function(data) {
         $("#check").button('reset');
         alert("Error : " + JSON.parse(data.responseText).message);
-      },
-      success: function(data) {
-        window.location = '/user'
       }
     });
+  }
+  function checkForAuth() {
+    $.ajax({
+      url: "<%= auth_path %>",
+      data: {nonce: "<%= @nonce.uuid %>", secret: "<%= @nonce.secret %>"},
+      type: "get",
+      success: function(data) {
+        if (data.authenticated == 1) {
+          window.location = '/user';
+        }
+      }
+    });    
+    if (new Date().getTime() - timeStart < 60*10*1000) {
+      setTimeout(checkForAuth(), 1000);
+    }
   }
 </script>

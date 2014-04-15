@@ -6,6 +6,7 @@ class NonceTest < ActiveSupport::TestCase
     nonce = Nonce.new
     assert nonce.save
     assert_equal 16, nonce.uuid.length
+    assert_equal 64, nonce.secret.length
   end
 
   test "should expire after 10 minutes" do

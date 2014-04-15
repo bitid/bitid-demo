@@ -4,6 +4,7 @@ BitidDemo::Application.routes.draw do
   root to: 'home#index'
   match '/login', to: 'home#login'
   match '/user', to: 'home#user'
+  match '/auth', to: 'home#auth'
 
   resources :callback, only: :create
 end
