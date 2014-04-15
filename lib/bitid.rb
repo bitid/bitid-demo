@@ -1,25 +1,22 @@
 class Bitid
 
   SCHEME = 'bitid'
-  ACTION_LOGIN = 'login'
   PARAM_NONCE = 'x'
-  PARAM_CALLBACK = 'c'
+  SIGNATURE_HEADER = "Bitcoin Signed Message:\n"
 
   attr_accessor :nonce, :callback, :signature, :uri
 
   def initialize hash={}
     @nonce = hash[:nonce]
-    @callback = hash[:callback]
+    @callback = URI(hash[:callback])
     @signature = hash[:signature]
     @address = hash[:address]
-    begin
-      if hash[:uri].blank?
-        build_uri
-      else
-        @uri = URI(hash[:uri])
-      end
+    if hash[:uri].blank?
+      build_uri
+    else
+      @uri = URI(hash[:uri])
+    end
     rescue
-    end    
   end
 
   def uri_valid?
@@ -27,12 +24,15 @@ class Bitid
       false
     elsif @uri.scheme != SCHEME
       false
-    elsif @uri.host != ACTION_LOGIN
+    elsif @uri.host != @callback.host
       false
+    elsif @uri.port != @callback.port
+      false
+    elsif @uri.path != @callback.path
+      false      
     else
       params = CGI::parse(@uri.query)
-      return false unless params[PARAM_NONCE][0].present? && params[PARAM_CALLBACK][0].present?
-      return false if @callback.blank? || !@callback.eql?(Base64.decode64(params[PARAM_CALLBACK][0]))
+      return false unless params[PARAM_NONCE][0].present?
       true
     end
     rescue
@@ -40,7 +40,7 @@ class Bitid
   end
 
   def signature_valid?
-    BitcoinCigs.verify_message(@address, @signature, @uri.to_s)
+    BitcoinCigs.verify_message(@address, @signature, message)
   end
 
   def qrcode
@@ -51,12 +51,15 @@ class Bitid
     CGI::parse(@uri.query)[PARAM_NONCE][0]
   end
 
+  def message
+    SIGNATURE_HEADER + @uri.to_s
+  end
+
   private
 
   def build_uri
-    params = {}
-    params[PARAM_NONCE] = @nonce.uuid
-    params[PARAM_CALLBACK] = Base64.strict_encode64(@callback)
-    @uri = URI(SCHEME + '://' + ACTION_LOGIN + '?' + URI.encode_www_form(params))
-  end    
+    @uri = @callback
+    @uri.scheme = SCHEME
+    @uri.query = URI.encode_www_form({PARAM_NONCE => @nonce.uuid})
+  end
 end

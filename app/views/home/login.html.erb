@@ -23,9 +23,7 @@
       function, paste the text into the message input and sign. After it is done, copy and paste the signature 
       into the field below.</p>
       <p>Cumbersome. Yep. Much better with a simple scan or click using a compatible wallet :)</p>
-      <div class="well">
-        <%= @bitid.uri.to_s %> 
-      </div>
+      <pre><%= @bitid.message %></pre>
       <div class="form-group">
         <label>Bitcoin address</label>
         <input type="text" name="address" id="address" class="form-control" placeholder="Enter your public Bitcoin address">

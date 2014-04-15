@@ -5,9 +5,9 @@ class BitidTest < ActiveSupport::TestCase
   setup do
     @nonce = Nonce.create
     @callback = "http://localhost:3000/callback"
-    @uri = "bitid://login?x=fe32e61882a71074&c=aHR0cDovL2xvY2FsaG9zdDozMDAwL2NhbGxiYWNr"
+    @uri = "bitid://localhost:3000/callback?x=fe32e61882a71074"
     @address = "1HpE8571PFRwge5coHiFdSCLcwa7qetcn"
-    @signature = "Hyecrhc+ojNuW7QFZOWNze87CPZv6Dm/OlJiE6seICDR+qP17odDFw7lYlv4df9oBFMzDEgp/S+8Mi7tzy+mTMk="
+    @signature = "H1cDvRY+UbKNbwlHuS6rJ9376C7RF7NxYB6fZTNEOQo4/UFXezcK0uv1+3/fejJJAMKrnkGEo1Ue00pWB8Gu9SQ="
   end
 
   test "should build uri" do
@@ -15,11 +15,12 @@ class BitidTest < ActiveSupport::TestCase
     
     assert bitid.uri.present?
     assert_equal "bitid", bitid.uri.scheme
-    assert_equal "login", bitid.uri.host
+    assert_equal "localhost", bitid.uri.host
+    assert_equal 3000, bitid.uri.port
+    assert_equal "/callback", bitid.uri.path
 
     params = CGI::parse(bitid.uri.query)
     assert_equal @nonce.uuid, params['x'].first
-    assert_equal @callback, Base64.decode64(params['c'].first)
   end
 
   test "should build qrcode" do
@@ -27,6 +28,12 @@ class BitidTest < ActiveSupport::TestCase
 
     uri_encoded = CGI::escape(bitid.uri.to_s)
     assert_equal "http://chart.apis.google.com/chart?cht=qr&chs=300x300&chl=#{uri_encoded}", bitid.qrcode
+  end
+
+  test "should build message" do
+    bitid = Bitid.new(nonce:@nonce, callback:@callback)
+
+    assert_match /\ABitcoin Signed Message\:\nbitid\:\/\/localhost\:3000\/callback\?x=/, bitid.message
   end
 
   test "should verify uri" do 
