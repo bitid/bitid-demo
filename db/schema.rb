@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140415163848) do
+ActiveRecord::Schema.define(:version => 20140416123614) do
 
   create_table "nonces", :force => true do |t|
     t.string   "uuid"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(:version => 20140415163848) do
     t.datetime "updated_at", :null => false
     t.string   "secret"
     t.integer  "user_id"
+    t.string   "session_id"
   end
 
   create_table "users", :force => true do |t|

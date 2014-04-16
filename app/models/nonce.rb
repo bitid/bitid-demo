@@ -2,9 +2,11 @@ class Nonce < ActiveRecord::Base
   belongs_to :user
   
   validates :uuid, presence: true, uniqueness: true
-  validates :secret, presence: true, uniqueness: true
+  validates :session_id, presence: true, uniqueness: true
 
-  before_validation :build
+  attr_accessible :session_id
+
+  before_validation :init
 
   def expired?
     self.created_at.to_i < Time.now.to_i - 600
@@ -12,8 +14,7 @@ class Nonce < ActiveRecord::Base
 
   private
 
-  def build
+  def init
     self.uuid = SecureRandom.hex(8) if self.uuid.nil?
-    self.secret = SecureRandom.hex(32) if self.secret.nil?
   end
 end

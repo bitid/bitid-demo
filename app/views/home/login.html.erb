@@ -76,7 +76,6 @@
   function checkForAuth() {
     $.ajax({
       url: "<%= auth_path %>",
-      data: {nonce: "<%= @nonce.uuid %>", secret: "<%= @nonce.secret %>"},
       type: "get",
       success: function(data) {
         if (data.auth == 1) {

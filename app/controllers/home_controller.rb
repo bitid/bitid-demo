@@ -1,12 +1,12 @@
 class HomeController < ApplicationController
 
   def login
-    @nonce = Nonce.create
+    @nonce = Nonce.create(session_id:@session_id)
     @bitid = Bitid.new({nonce:@nonce, callback:callback_index_url})
   end
 
   def auth
-    nonce = Nonce.find_by_uuid_and_secret(params[:nonce], params[:secret])
+    nonce = Nonce.find_by_session_id(@session_id)
     if nonce && nonce.user.present?
       sign_in nonce.user
       nonce.destroy
