@@ -42,7 +42,7 @@ class Bitid
   end
 
   def qrcode
-    "http://chart.apis.google.com/chart?cht=qr&chs=300x300&chl=" + CGI::escape(@uri.to_s)
+    "http://chart.apis.google.com/chart?cht=qr&chs=300x300&chl=" + CGI::escape(message)
   end
 
   def nonce

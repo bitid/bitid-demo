@@ -26,7 +26,7 @@ class BitidTest < ActiveSupport::TestCase
   test "should build qrcode" do
     bitid = Bitid.new(nonce:@nonce, callback:@callback)
 
-    uri_encoded = CGI::escape(bitid.uri.to_s)
+    uri_encoded = CGI::escape(bitid.message)
     assert_equal "http://chart.apis.google.com/chart?cht=qr&chs=300x300&chl=#{uri_encoded}", bitid.qrcode
   end
 
