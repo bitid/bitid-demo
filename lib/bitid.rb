@@ -26,8 +26,6 @@ class Bitid
       false
     elsif @uri.host != @callback.host
       false
-    elsif @uri.port != @callback.port
-      false
     elsif @uri.path != @callback.path
       false      
     else
