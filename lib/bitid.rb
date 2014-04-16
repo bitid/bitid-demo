@@ -55,6 +55,10 @@ class Bitid
     SIGNATURE_HEADER + @uri.to_s
   end
 
+  def callback
+    @callback
+  end
+
   private
 
   def build_uri

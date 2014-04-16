@@ -34,6 +34,8 @@
       </div>
       <button id="check" class="btn btn-success" data-loading-text="Verifying signature">Sign in !</button>
       <div class="spacer40"></div>
+      <p>You can also simulate the response of the wallet by executing the following API call :</p>
+      <pre id="curl"/>
     </div>
   </div>
 
@@ -46,9 +48,19 @@
     $('#check').on('click', function() {
       confirmSignature();
     });
-    var timeStart = new Date().getTime();
-    setTimeout(checkForAuth(), 1000);
+    timeStart = new Date().getTime();
+    setTimeout(checkForAuth, 1000);
+    $("#address").on("input", setCurl);
+    $("#signature").on("input", setCurl);
+    setCurl();
   });
+  function setCurl() {
+    $("#curl").html("curl -X POST <%= callback_index_url.gsub("/", "\\/") %> \\\n"
++ "  --header \"Content-Type: application/json\" \\\n"
++ "  --data '{\"uri\" : \"<%= @bitid.uri.to_s %>\", \n"
++ "    \"address\" : \"" + $("#address").val() + "\", \n"
++ "    \"signature\" : \"" + $("#signature").val() + "\"}'");
+  }
   function confirmSignature() {
     $("#check").button('loading');
     $.ajax({
@@ -67,13 +79,13 @@
       data: {nonce: "<%= @nonce.uuid %>", secret: "<%= @nonce.secret %>"},
       type: "get",
       success: function(data) {
-        if (data.authenticated == 1) {
+        if (data.auth == 1) {
           window.location = '/user';
         }
       }
     });    
     if (new Date().getTime() - timeStart < 60*10*1000) {
-      setTimeout(checkForAuth(), 1000);
+      setTimeout(checkForAuth, 1000);
     }
   }
 </script>
