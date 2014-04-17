@@ -15,6 +15,9 @@ class Nonce < ActiveRecord::Base
   private
 
   def init
-    self.uuid = SecureRandom.hex(8) if self.uuid.nil?
+    if self.uuid.nil?
+      Nonce.where(session_id:self.session_id).destroy_all
+      self.uuid = SecureRandom.hex(8)
+    end
   end
 end

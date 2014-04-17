@@ -9,6 +9,12 @@ class NonceTest < ActiveSupport::TestCase
     assert_equal "abcd", nonce.session_id
   end
 
+  test "should destroy other identical session_id nonce" do
+    Nonce.create!(session_id:"abcd")
+    nonce = Nonce.new(session_id:"abcd")
+    assert nonce.save
+  end
+
   test "should expire after 10 minutes" do
     nonce = Nonce.create(session_id:"123")
     assert !nonce.expired?
