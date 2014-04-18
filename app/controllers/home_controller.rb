@@ -2,7 +2,7 @@ class HomeController < ApplicationController
 
   def login
     @nonce = Nonce.create(session_id:@session_id)
-    @bitid = Bitid.new({nonce:@nonce.uuid, callback:callback_index_url})
+    @bitid = Bitid.new({nonce:@nonce.uuid, callback:callback_index_url, unsecure:true})
   end
 
   def auth
