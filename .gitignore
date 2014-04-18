@@ -13,3 +13,9 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+# Ignore installation-specific data
+config/unicorn.rb
+public/assets/
+vendor/bundle/
+
