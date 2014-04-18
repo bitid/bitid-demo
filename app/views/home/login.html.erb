@@ -23,7 +23,7 @@
       function, paste the text into the message input and sign. After it is done, copy and paste the signature 
       into the field below.</p>
       <p>Cumbersome. Yep. Much better with a simple scan or click using a compatible wallet :)</p>
-      <pre><%= @bitid.message %></pre>
+      <pre><%= @bitid.uri %></pre>
       <div class="form-group">
         <label>Bitcoin address</label>
         <input type="text" name="address" id="address" class="form-control" placeholder="Enter your public Bitcoin address">
@@ -57,7 +57,7 @@
   function setCurl() {
     $("#curl").html("curl -X POST <%= callback_index_url.gsub("/", "\\/") %> \\\n"
 + "  --header \"Content-Type: application/json\" \\\n"
-+ "  --data '{\"uri\" : \"<%= @bitid.uri.to_s %>\", \n"
++ "  --data '{\"uri\" : \"<%= @bitid.uri %>\", \n"
 + "    \"address\" : \"" + $("#address").val() + "\", \n"
 + "    \"signature\" : \"" + $("#signature").val() + "\"}'");
   }
