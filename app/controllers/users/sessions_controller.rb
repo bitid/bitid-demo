@@ -8,7 +8,6 @@ class Users::SessionsController < Devise::SessionsController
       user = User.find_or_create_by_btc(address)
       sign_in user
       redirect_to user_path
-      end
     end
   end
 
