@@ -1,6 +1,7 @@
   <ul class="nav nav-pills" id="loginTab">
     <li class="active"><a href="#qrcode" data-toggle="tab">QRcode</a></li>
     <li><a href="#manual" data-toggle="tab">Manual</a></li>
+    <li><a href="#lw" data-toggle="tab">Ledger Wallet</a></li>
   </ul>
 
   <div class="tab-content">
@@ -37,6 +38,23 @@
       <p>You can also simulate the response of the wallet by executing the following API call :</p>
       <pre id="curl"/>
     </div>
+    <div class="tab-pane" id="lw">
+      <div class="spacer50"></div>
+      <h3>Ledger Wallet</h3>
+      <p>Please insert your Ledger Wallet to login.</p>
+      <div id="pinpad-div">
+        <%= form_for(User.new, url: user_session_path, id: "lw") do |f| %>
+          <div class="form-group">
+            <label>PIN</label>
+            <input type="password" id="pinpad" class="form-control" placeholder="Enter your pincode">
+          </div>
+          <input type="hidden" name="signed_challenge" id="signed_challenge">
+          <div class="form-actions">
+            <button class="btn breen" type="submit">Login</button>
+          </div>     
+        <% end %>
+      </div>
+    </div>
   </div>
 
 <script>
@@ -53,6 +71,7 @@
     $("#address").on("input", setCurl);
     $("#signature").on("input", setCurl);
     setCurl();
+    LW.init();
   });
   function setCurl() {
     $("#curl").html("curl -X POST <%= callback_index_url.gsub("/", "\\/") %> \\\n"
