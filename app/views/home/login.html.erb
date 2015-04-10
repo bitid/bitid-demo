@@ -1,5 +1,6 @@
   <ul class="nav nav-pills" id="loginTab">
     <li class="active"><a href="#qrcode" data-toggle="tab">QRcode</a></li>
+    <li><a href="#lw" data-toggle="tab">Ledger Wallet</a></li>
     <li><a href="#manual" data-toggle="tab">Manual</a></li>
   </ul>
 
@@ -36,6 +37,13 @@
       <div class="spacer40"></div>
       <p>You can also simulate the response of the wallet by executing the following API call :</p>
       <pre id="curl"/>
+    </div>
+    <div class="tab-pane" id="lw">
+      <div class="spacer50"></div>
+      <h3>Ledger Wallet</h3>
+      <button class="btn btn-success" type="button" onclick="Ledger.bitid('<%= @bitid.uri %>')">Login with your Ledger Wallet</button>
+      <p>
+      <div id="lw-result"><div/>
     </div>
   </div>
 
@@ -87,4 +95,11 @@
       setTimeout(checkForAuth, 1000);
     }
   }
+  function callback(event) {
+    response = event.response
+    if (typeof response == "undefined") {
+      document.getElementById("lw-result").innerHTML = "The Ledger app is NOT available";
+    }
+  };
+  Ledger.init({ callback: callback });  
 </script>
